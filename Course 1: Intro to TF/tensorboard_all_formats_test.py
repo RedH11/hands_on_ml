@@ -4,7 +4,7 @@ import tensorflow as tf
 import numpy as np
 
 # Defining the root log directory used for TensorBoard logs
-root_logdir = os.path.join(os.curdir, "my_logs")
+root_logdir = os.path.join(os.curdir, "../my_logs")
 
 def get_run_logdir():
     run_id = time.strftime("run_%Y_%m_%d_%H_%M_%S")

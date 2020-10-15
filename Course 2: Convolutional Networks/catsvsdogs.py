@@ -33,7 +33,7 @@ model = Sequential([
 model.compile(
     loss='binary_crossentropy',
     optimizer=RMSprop(lr=0.001),
-    metrics=['acc']
+    metrics=['acc', 'val_accuracy']
 )
 
 # Define Callbacks

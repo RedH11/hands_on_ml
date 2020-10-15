@@ -8,7 +8,7 @@ import time
 import os
 
 # Defining the root log directory used for TensorBoard logs
-root_logdir = os.path.join(os.curdir, "my_logs")
+root_logdir = os.path.join(os.curdir, "../my_logs")
 
 def get_run_logdir():
     run_id = time.strftime("run_%Y_%m_%d_%H_%M_%S")
@@ -38,7 +38,7 @@ model = keras.Sequential([
     # Very noisy data, so a single hidden layer is used to avoid overfitting
     Dense(30, activation="relu", input_shape=X_train.shape[1:]),
 
-    # Only  a signle layer at the end because only a single price is being predicted as the output
+    # Only  a single layer at the end because only a single price is being predicted as the output
     Dense(1)
 ])
 
