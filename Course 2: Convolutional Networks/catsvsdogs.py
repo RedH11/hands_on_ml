@@ -9,13 +9,10 @@ import time
 from PIL.Image import core as _imaging
 
 """
-Bug Note: (For save best only)
-Setting it to monitor accuracy somehow worked instead of val_accuracy and the accuracy in the metrics also
-had to be 'accuracy' instead of 'acc'
-
-It also seems like adding the es_cb breaks it for some reason
+    Setup
+        - Allowing dynamic memory growth
+        - Finding the root path to the dir
 """
-
 physical_devices = tf.config.list_physical_devices('GPU')
 try:
   tf.config.experimental.set_memory_growth(physical_devices[0], True)
@@ -31,13 +28,22 @@ def get_run_logdir():
 
 run_logdir = get_run_logdir()
 
-# Retrieving Data
+"""
+    Configuring the image generators 
+"""
 train_dir = os.getcwd() + '/cvd_train'
-print(train_dir)
-train_datagen = ImageDataGenerator(rescale=1./255, validation_split=0.1)
-
-train_generator = train_datagen.flow_from_directory(
+training_datagen = ImageDataGenerator(rescale=1./255)
+training_generator = training_datagen.flow_from_directory(
     train_dir,
+    target_size=(150, 150),
+    batch_size=10,
+    class_mode='binary'
+)
+
+testing_dir = os.getcwd() + '/cvd_test'
+testing_datagen = ImageDataGenerator(rescale=1./255)
+validation_generator = testing_datagen.flow_from_directory(
+    testing_dir,
     target_size=(150, 150),
     batch_size=10,
     class_mode='binary'
@@ -79,10 +85,19 @@ acc_cb = AccuracyCallback()
 
 # Training Model
 history = model.fit(
-    train_generator,
+    training_generator,
+    validation_data = validation_generator,
     epochs=100,
     steps_per_epoch=100,
     validation_steps=50,
     shuffle=True,
     callbacks=[acc_cb, checkpoint_cb, tensorboard_cb]
 )
+
+"""
+Bug Note: (For save best only) with validation split in the training image generator
+Setting it to monitor accuracy somehow worked instead of val_accuracy and the accuracy in the metrics also
+had to be 'accuracy' instead of 'acc'
+
+It also seems like adding the es_cb breaks it for some reason
+"""
