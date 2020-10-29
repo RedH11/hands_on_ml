@@ -6,7 +6,7 @@ from tensorflow.keras.callbacks import *
 import tensorflow as tf
 import os
 import time
-from PIL import Image
+from PIL.Image import core as _imaging
 
 """
 Bug Note: (For save best only)
