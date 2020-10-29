@@ -4,6 +4,7 @@ from tensorflow.keras.preprocessing.image import *
 from tensorflow.keras.optimizers import *
 from tensorflow.keras.callbacks import *
 import tensorflow as tf
+from PIL import Image
 
 """
 Author: Hunter Webb

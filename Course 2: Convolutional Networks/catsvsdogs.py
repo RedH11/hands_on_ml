@@ -6,6 +6,8 @@ from tensorflow.keras.callbacks import *
 import tensorflow as tf
 import os
 import time
+from PIL import Image
+
 """
 Bug Note: (For save best only)
 Setting it to monitor accuracy somehow worked instead of val_accuracy and the accuracy in the metrics also
