@@ -36,7 +36,7 @@ training_datagen = ImageDataGenerator(rescale=1./255)
 training_generator = training_datagen.flow_from_directory(
     train_dir,
     target_size=(150, 150),
-    batch_size=10,
+    batch_size=3,
     class_mode='binary'
 )
 
@@ -45,7 +45,7 @@ testing_datagen = ImageDataGenerator(rescale=1./255)
 validation_generator = testing_datagen.flow_from_directory(
     testing_dir,
     target_size=(150, 150),
-    batch_size=10,
+    batch_size=3,
     class_mode='binary'
 )
 
