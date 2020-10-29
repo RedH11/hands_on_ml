@@ -89,7 +89,6 @@ history = model.fit(
     validation_data = validation_generator,
     epochs=100,
     steps_per_epoch=100,
-    validation_steps=50,
     shuffle=True,
     callbacks=[acc_cb, checkpoint_cb, tensorboard_cb]
 )
