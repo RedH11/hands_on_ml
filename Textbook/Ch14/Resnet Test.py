@@ -2,7 +2,7 @@ import tensorflow.keras as keras
 import tensorflow as tf
 import os, time, shutil
 from tensorflow.keras.layers import Conv2D, BatchNormalization, Activation, MaxPool2D, GlobalAveragePooling2D, Flatten, Dense
-from Textbook.Ch14.Resnet34 import ResidualUnit
+from Resnet34 import ResidualUnit
 from tensorflow.keras.preprocessing.image import *
 from tensorflow.keras.callbacks import *
 """
