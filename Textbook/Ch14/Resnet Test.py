@@ -16,7 +16,7 @@ Implementing Restnet34 on Bee vs Wasp Dataset
 input_w = 224
 input_h = 224
 
-physical_devices = tf.config.list_physical_devices('GPU')
+physical_devices = tf.config.list_physical_devices('CPU')
 try:
   tf.config.experimental.set_memory_growth(physical_devices[0], True)
 except:
@@ -101,5 +101,5 @@ history = model.fit(
     epochs=100,
     steps_per_epoch=100,
     shuffle=True,
-    callbacks=[acc_cb, checkpoint_cb, tensorboard_cb]
+    callbacks=[acc_cb, checkpoint_cb]
 )
