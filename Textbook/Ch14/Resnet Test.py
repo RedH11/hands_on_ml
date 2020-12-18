@@ -99,8 +99,8 @@ model.compile(
 history = model.fit(
     training_generator,
     validation_data = validation_generator,
-    epochs=20,
-    steps_per_epoch=100,
+    epochs=100,
+    #steps_per_epoch=100,
     #shuffle=True,
 )
 
