@@ -77,11 +77,12 @@ model.add(Dense(10, activation='softmax'))
 checkpoint_cb = ModelCheckpoint('beesVwasps.h5', monitor='accuracy', save_best_only=True)
 tensorboard_cb = TensorBoard(os.getcwd() + '/logs')
 
+def on_epoch_end(self, epoch, logs={}):
+    if logs.get('accuracy') >= 0.85:
+        print("\nAccuracy has reached 0.85, stopping training.")
+        self.model.stop_training = True
 class AccuracyCallback(Callback):
-    def on_epoch_end(self, epoch, logs={}):
-        if logs.get('accuracy') >= 0.85:
-            print("\nAccuracy has reached 0.85, stopping training.")
-            self.model.stop_training = True
+    pass
 
 acc_cb = AccuracyCallback()
 
@@ -98,7 +99,9 @@ model.compile(
 history = model.fit(
     training_generator,
     validation_data = validation_generator,
-    epochs=100,
+    epochs=20,
     steps_per_epoch=100,
     #shuffle=True,
 )
+
+model.save("bVwModel.h5")
