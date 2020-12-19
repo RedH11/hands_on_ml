@@ -24,8 +24,6 @@ except:
   # Invalid device or cannot modify virtual devices once initialized.
   pass
 
-run_id = time.strftime("beesVwasp_%m_%d_%H_%M")
-
 """
     Retrieving Data / Making Image Generators
 """
