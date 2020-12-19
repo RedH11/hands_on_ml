@@ -1,6 +1,7 @@
 import tensorflow.keras as keras
 import tensorflow as tf
-import os, time, shutil
+import os
+from datetime import date
 from tensorflow.keras.layers import Conv2D, BatchNormalization, Activation, MaxPool2D, GlobalAveragePooling2D, Flatten, Dense
 from Resnet34 import ResidualUnit
 from tensorflow.keras.preprocessing.image import *
@@ -104,4 +105,7 @@ history = model.fit(
     #shuffle=True,
 )
 
-model.save("bVwModel.h5")
+today = date.today()
+cur_time = today.strftime("%d/%m/%Y")
+
+model.save(cur_time + "_bVwModel.h5")
