@@ -1,6 +1,6 @@
 import tensorflow.keras as keras
 import tensorflow as tf
-import os, sys, atexit
+import os, sys, atexit, logging
 from datetime import date
 from tensorflow.keras.layers import Conv2D, BatchNormalization, Activation, MaxPool2D, GlobalAveragePooling2D, Flatten, Dense
 from Resnet34 import ResidualUnit
@@ -24,8 +24,15 @@ except:
   # Invalid device or cannot modify virtual devices once initialized.
   pass
 
-log_file = open("outputs.log","w")
-sys.stdout = log_file
+# Saves the logs to a file and prints them
+a_logger = logging.getLogger()
+a_logger.setLevel(logging.DEBUG)
+
+output_file_handler = logging.FileHandler("last_output.log")
+stdout_handler = logging.StreamHandler(sys.stdout)
+
+a_logger.addHandler(output_file_handler)
+a_logger.addHandler(stdout_handler)
 
 
 """
@@ -115,7 +122,6 @@ def save_model():
 # Save the logs before exiting
 def exit_handler():
     print("Ending Training...")
-    log_file.close()
     save_model()
 
 atexit.register(exit_handler)
