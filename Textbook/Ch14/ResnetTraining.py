@@ -1,6 +1,6 @@
 import tensorflow.keras as keras
 import tensorflow as tf
-import os
+import os, sys, atexit
 from datetime import date
 from tensorflow.keras.layers import Conv2D, BatchNormalization, Activation, MaxPool2D, GlobalAveragePooling2D, Flatten, Dense
 from Resnet34 import ResidualUnit
@@ -23,6 +23,10 @@ try:
 except:
   # Invalid device or cannot modify virtual devices once initialized.
   pass
+
+log_file = open("outputs.log","w")
+sys.stdout = log_file
+
 
 """
     Retrieving Data / Making Image Generators
@@ -98,12 +102,20 @@ model.compile(
 history = model.fit(
     training_generator,
     validation_data = validation_generator,
-    epochs=100,
+    epochs=10,
     #steps_per_epoch=100,
     #shuffle=True,
 )
 
-today = date.today()
-cur_time = today.strftime("%d/%m/%Y")
+def save_model():
+    today = date.today()
+    cur_time = today.strftime("%d/%m/%Y")
+    model.save(cur_time + "_bVwModel.h5")
 
-model.save(cur_time + "_bVwModel.h5")
+# Save the logs before exiting
+def exit_handler():
+    print("Ending Training...")
+    log_file.close()
+    save_model()
+
+atexit.register(exit_handler)
